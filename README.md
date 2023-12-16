@@ -2,6 +2,8 @@
 
 This app will help you manage Tasks. It is built in Laravel.
 
+See front-end here: [https://github.com/johnngondi/interview-demo-app-fe](https://github.com/johnngondi/interview-demo-app-fe)
+
 ## Project Setup
 
 ```sh

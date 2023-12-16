@@ -25,6 +25,6 @@ Route::get('/', function (){
 Route::middleware(['auth:sanctum', ValidateTwoFactorAuth::class])->group(function () {
 
     //Routes for authenticated User
-    
+
 
 });
