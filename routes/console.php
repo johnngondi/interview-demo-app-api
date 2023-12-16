@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+Artisan::command('app:create-user', function () {
+
+    $user = \App\Models\User::factory()->create([
+        'name' => 'John Ngondi',
+        'email' => 'john@ida.com'
+    ]);
+
+    $this->comment('Name: ' . $user->name);
+    $this->comment('Email: ' . $user->email);
+    $this->comment('Password: password');
+
+})->purpose('Create Test User');

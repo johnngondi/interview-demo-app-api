@@ -16,13 +16,20 @@ composer install
 php artisan serve
 ```
 
+### Create first User
+The project doesn't provide register endpoint. Create test User by running the `create-user` command.
+```shell
+php artisan app:create-user
+```
+
 ## API Documentation
 
-This is API documentation for the project
+This is API documentation for the project.
+Postman Collections & environment are included in the source code.
 
 ### Check if User is logged in
 
-Send in a get request with Auth Token (Sanctum) in the Authorization header and the system will validate and return data object with user's name and token or error `401` if token is invalid
+Send in a get request with Auth Token (Sanctum) in the Authorization header and the system will validate and return data object with user's name or error `401` if token is invalid
 
 #### URL Endpoint
 
@@ -35,15 +42,14 @@ Send in a get request with Auth Token (Sanctum) in the Authorization header and 
 ```json
 {
   "data": {
-    "user": "John Ngondi",
-    "token": "[AUTH_TOKEN]"
+    "user": "John Ngondi"
   }
 }
 ```
 
 ### Login User
 
-Send in the email and password and the system will validate and return data object with user's name and token or `401` error if details are not valid
+Send in the email and password and the system will validate and return data object with user and token or `400` error if details are not valid
 
 #### URL Endpoint
 
@@ -65,7 +71,7 @@ Send in the email and password and the system will validate and return data obje
 ```json
 {
   "data": {
-    "user": "John Ngondi",
+    "user": {},
     "token": "[AUTH_TOKEN]"
   }
 }
@@ -179,7 +185,7 @@ Send in the task title with Auth Token (Sanctum) in the Authorization header the
 #### URL Endpoint
 
 ```shell
-[POST]  v1/tasks/new
+[POST]  v1/tasks
 ```
 
 #### Payload

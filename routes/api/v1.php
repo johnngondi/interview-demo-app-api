@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CheckLoginStatusController;
+use App\Http\Controllers\Api\V1\LoginController;
+use App\Http\Controllers\Api\V1\LogoutController;
+use App\Http\Controllers\Api\V1\TaskController;
 use App\Http\Middleware\ValidateTwoFactorAuth;
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,15 +18,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function (){
-    return response([
-        'quote' => Inspiring::quote()
-    ]);
-});
+Route::post('login', LoginController::class);
 
 Route::middleware(['auth:sanctum', ValidateTwoFactorAuth::class])->group(function () {
-
     //Routes for authenticated User
 
+    Route::get('login-status', CheckLoginStatusController::class);
+    Route::post('logout', LogoutController::class);
+
+    Route::apiResource('tasks', TaskController::class)->except(['show']);
 
 });
