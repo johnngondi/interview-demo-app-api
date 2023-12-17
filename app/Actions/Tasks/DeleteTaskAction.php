@@ -4,6 +4,7 @@ namespace App\Actions\Tasks;
 
 use App\DTOs\TaskDTO;
 use App\Models\Task;
+use Illuminate\Support\Facades\Gate;
 
 class DeleteTaskAction
 {
@@ -13,6 +14,7 @@ class DeleteTaskAction
 
     public function execute(Task $task): bool
     {
+        Gate::authorize('delete', $task);
         return $task->delete();
     }
 }

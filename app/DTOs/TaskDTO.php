@@ -9,7 +9,7 @@ class TaskDTO extends ValidatedDTO
     protected function rules(): array
     {
         return [
-            'title' => 'required|string:255|unique:tasks,title',
+            'title' => 'required|string:255',
             'user_id' => 'required|exists:users,id'
         ];
     }

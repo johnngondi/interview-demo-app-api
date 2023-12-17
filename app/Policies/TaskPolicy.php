@@ -29,7 +29,7 @@ class TaskPolicy
      */
     public function create(User $user): bool
     {
-        $user->hasPermissionTo('create-tasks');
+        return $user->hasPermissionTo('create-tasks');
     }
 
     /**
