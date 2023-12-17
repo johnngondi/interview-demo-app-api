@@ -16,11 +16,18 @@ composer install
 php artisan serve
 ```
 
-### Create first User
-The project doesn't provide register endpoint. Create test User by running the `create-user` command.
-```shell
-php artisan app:create-user
+### Migrate database
+When migrating, make sure you seed to have system create roles automatically
+```sh
+php artisan migrate --seed
 ```
+
+### Create Test Users
+The project doesn't provide register endpoint. Create test User by running the `app:create-test-users` command.
+```shell
+php artisan app:create-test-users
+```
+This will create two users one will be able assigned admin role and will have the ability to create Tasks while the other will not be able to.
 
 ## API Documentation
 
@@ -129,7 +136,7 @@ Send in a get request with Auth Token (Sanctum) in the Authorization header and 
 
 ### Mark Task as Done/Open
 
-Send in the task done status (bool) with Auth Token (Sanctum) in the Authorization header the system will validate the data and create task then return data object with task if valid or error `401` if token is invalid, `422` id data is invalid and `500` in case of server error.
+Send in the task done status (bool) with Auth Token (Sanctum) in the Authorization header the system will validate the data and create task then return data object with task if valid or error `401` if token is invalid, `403` if not authorized, `422` id data is invalid and `500` in case of server error.
 
 #### URL Endpoint
 
@@ -141,7 +148,7 @@ Send in the task done status (bool) with Auth Token (Sanctum) in the Authorizati
 
 ```json
   {
-    "done": true
+    "status": true
   }
 ```
 
@@ -161,7 +168,7 @@ Send in the task done status (bool) with Auth Token (Sanctum) in the Authorizati
 
 ### Delete Task
 
-Send in a DELETE request with Auth Token (Sanctum) in the Authorization header, the system will validate the data and delete task then return data object with null if valid or error `401` if token is invalid and `500` in case of server error.
+Send in a DELETE request with Auth Token (Sanctum) in the Authorization header, the system will validate the data and delete task then return data object with null if valid or error `401` if token is invalid, `403` if not authorized, and `500` in case of server error.
 
 #### URL Endpoint
 
@@ -180,7 +187,7 @@ Send in a DELETE request with Auth Token (Sanctum) in the Authorization header, 
 
 ### Add Task
 
-Send in the task title with Auth Token (Sanctum) in the Authorization header the system will validate the data and create task then return data object with task if valid or error `401` if token is invalid, `422` id data is invalid and `500` in case of server error.
+Send in the task title with Auth Token (Sanctum) in the Authorization header the system will validate the data and create task then return data object with task if valid or error `401` if token is invalid, `403` if not authorized, `422` id data is invalid and `500` in case of server error.
 
 #### URL Endpoint
 

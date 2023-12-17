@@ -14,15 +14,41 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Artisan::command('app:create-user', function () {
+Artisan::command('app:create-test-users', function () {
 
-    $user = \App\Models\User::factory()->create([
-        'name' => 'John Ngondi',
-        'email' => 'john@ida.com'
-    ]);
+    $users = [
+        [
+            'name' => 'John Ngondi',
+            'email' => 'john@ida.com',
+            'attach_role' => true
+        ],
+        [
+            'name' => 'DeAndre Ngondi',
+            'email' => 'dre@ida.com',
+            'attach_role' => false
+        ]
+    ];
 
-    $this->comment('Name: ' . $user->name);
-    $this->comment('Email: ' . $user->email);
-    $this->comment('Password: password');
+    foreach ($users as $item) {
+        try {
+            $user = \App\Models\User::factory()->create(\Illuminate\Support\Arr::only($item, ['name','email']));
 
-})->purpose('Create Test User');
+            $this->info('User ID#' . $user->id . ' was created successful!');
+            $this->line('Email: ' . $user->email);
+            $this->line('Password: password');
+
+            if ($item['attach_role']){
+                $user->assignRole('Admin');
+                $this->comment('User is able to Create Tasks');
+            }
+        } catch (Exception $exception){
+            $this->warn('Test Users already exists. Test User Email: ' . $item['email'] . ' | Password: password');
+            return 0;
+        }
+
+        $this->newLine(2);
+
+    }
+
+
+})->purpose('Create Test Users');
